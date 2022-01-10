@@ -4,6 +4,7 @@ import (
 	// "database/sql"
 	// "fmt"
 
+	"database/sql"
 	"fmt"
 	"log"
 	"os"
@@ -12,13 +13,28 @@ import (
 	_ "github.com/lib/pq"
 )
 
-const (
-	// Initialize connection constants.
-	HOST     = "marriage-invitation.postgres.database.azure.com"
-	DATABASE = "postgres"
-	USER     = "mindongjoon"
-	PASSWORD = "<server_admin_password>"
-)
+func getPassword() string {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+	port := os.Getenv("PORT")
+	return port
+}
+
+func connectToDB() {
+	azureHost := "marriage-invitation.postgres.database.azure.com"
+	azureDatabase := "postgres"
+	azureUser := "mindongjoon"
+	azurePassword := getPassword()
+	connectionString := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=require", azureHost, azureUser, azurePassword, azureDatabase)
+	db, err := sql.Open("postgres", connectionString)
+	checkError(err)
+
+	err = db.Ping()
+	checkError(err)
+	fmt.Println("Successfully created connection to database")
+}
 
 func checkError(err error) {
 	if err != nil {
@@ -26,17 +42,6 @@ func checkError(err error) {
 	}
 }
 
-func getPassword() string {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-
-	port := os.Getenv("PORT")
-	return port
-}
-
 func main() {
-	dbPassword := getPassword()
-	fmt.Println(dbPassword)
+	connectToDB()
 }
