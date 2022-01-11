@@ -30,6 +30,7 @@ func connectToDB() {
 
 	err = db.Ping()
 	checkError(err)
+	fmt.Println("connection successful!")
 }
 
 func checkError(err error) {
