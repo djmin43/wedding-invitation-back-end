@@ -3,6 +3,7 @@ package main
 import (
 	"database/sql"
 	"fmt"
+
 	"log"
 	"os"
 
@@ -30,7 +31,6 @@ func connectToDB() {
 
 	err = db.Ping()
 	checkError(err)
-	fmt.Println("Successfully created connection to database")
 }
 
 func checkError(err error) {
