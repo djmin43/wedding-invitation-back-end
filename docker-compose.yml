@@ -1,0 +1,6 @@
+version: '3'
+
+services:
+  golang:
+    # build: .
+    image: jaymin43/wedding-invitation:latest

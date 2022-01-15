@@ -1,16 +1,19 @@
-FROM golang:1.17-alpine
+#!/usr/bin/env bash
+FROM golang:latest
+
+ENV PORT 80
+
+EXPOSE 80
+EXPOSE 4000
+EXPOSE 8080
 
 WORKDIR /app
 
-COPY go.mod ./
-COPY go.sum ./
-RUN go mod download
+# COPY go.mod ./
+# COPY go.sum ./
+# RUN go mod download
 
-COPY . .
-
-RUN go build
-
-EXPOSE 10000
+COPY ./marriage-invitation-back-end .
 
 CMD ["./marriage-invitation-back-end"]
 

@@ -22,9 +22,14 @@ func getAll(w http.ResponseWriter, r *http.Request)  {
 	fmt.Fprint(w, personList)
 }
 
+func landing(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "hello world")
+}
+
 func handleRequests() {
 	http.HandleFunc("/all", getAll)
-	log.Fatal(http.ListenAndServe(":10000", nil))
+	http.HandleFunc("/", landing)
+	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
 func main() {
