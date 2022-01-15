@@ -20,7 +20,7 @@ func getPassword() string {
 	return password
 }
 
-func connectToDB() {
+func connectToDB() *sql.DB {
 	azureHost := "marriage-invitation.postgres.database.azure.com"
 	azureDatabase := "postgres"
 	azureUser := "mindongjoon"
@@ -33,4 +33,5 @@ func connectToDB() {
 	checkError(err)
 	fmt.Println("connection successful!")
 	DB = db
+	return db
 }

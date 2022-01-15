@@ -16,7 +16,8 @@ func checkError(err error) {
 }
 
 func getAll(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(w)
+	list := getAllApi(DB)
+	fmt.Println(list)
 }
 
 func handleRequests() {
@@ -25,7 +26,7 @@ func handleRequests() {
 }
 
 func main() {
-	connectToDB()
-	getAllApi()
-	handleRequests()
+	db := connectToDB()
+
 }
+
