@@ -1,21 +1,12 @@
 package main
 
 import (
+	"fmt"
 	"log"
-	"os"
+	"net/http"
 
-	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 )
-
-func getPassword() string {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
-	password := os.Getenv("PASSWORD")
-	return password
-}
 
 
 func checkError(err error) {
@@ -24,6 +15,17 @@ func checkError(err error) {
 	}
 }
 
+func getAll(w http.ResponseWriter, r *http.Request) {
+	fmt.Println(w)
+}
+
+func handleRequests() {
+	http.HandleFunc("/all", getAll)
+	log.Fatal(http.ListenAndServe(":5000", nil))
+}
+
 func main() {
 	connectToDB()
+	getAllApi()
+	handleRequests()
 }
