@@ -1,4 +1,4 @@
-package db
+package main
 
 import (
 	"database/sql"
@@ -9,6 +9,7 @@ import (
 	"github.com/joho/godotenv"
 )
 
+var DB *sql.DB
 
 func getPassword() string {
 	err := godotenv.Load()
@@ -19,7 +20,7 @@ func getPassword() string {
 	return password
 }
 
-func connectToDB() *sql.DB {
+func connectToDB() {
 	azureHost := "marriage-invitation.postgres.database.azure.com"
 	azureDatabase := "postgres"
 	azureUser := "mindongjoon"
@@ -31,12 +32,5 @@ func connectToDB() *sql.DB {
 	err = db.Ping()
 	checkError(err)
 	fmt.Println("connection successful!")
-	return db
-}
-
-
-func checkError(err error) {
-	if err != nil {
-		panic(err)
-	}
+	DB = db
 }
