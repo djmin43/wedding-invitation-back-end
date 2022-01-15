@@ -15,8 +15,11 @@ func checkError(err error) {
 	}
 }
 
-func getAll(w http.ResponseWriter, r *http.Request) {
-	fmt.Println(w)
+func getAll(w http.ResponseWriter, r *http.Request)  {
+	personList := getAllApi()
+	// w.Header().Set("Content-Type", "application/json")
+	// json.NewEncoder(w).Encode(personList)
+	fmt.Fprint(w, personList)
 }
 
 func handleRequests() {
@@ -26,8 +29,6 @@ func handleRequests() {
 
 func main() {
 	connectToDB()
-	personList := getAllApi()
-	fmt.Println(personList)
 	handleRequests()
 }
 
