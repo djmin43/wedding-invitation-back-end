@@ -11,13 +11,15 @@ type person struct {
 	email string
 }
 
-func getAllApi(db *sql.DB) {
+func getAllApi() []person {
 	var id string
 	var name string
 	var email string
 
+	var personList []person
+
 	sql_statement := `SELECT * from main."user"`
-	rows, err := db.Query(sql_statement)
+	rows, err := DB.Query(sql_statement)
 	checkError(err)
 	defer rows.Close()
 
@@ -26,12 +28,16 @@ func getAllApi(db *sql.DB) {
 		case sql.ErrNoRows:
 			fmt.Println("No rows were returned")
 		case nil:
-
-			fmt.Printf("Data row = (%s, %s, %s)\n", id, name, email)
+			p := person{
+				id: id,
+				name: name,
+				email: email,
+			}
+			personList = append(personList, p)
+			// fmt.Printf("Data row = (%s, %s, %s)\n", id, name, email)
 		default:
 			checkError(err)
 		}
 	}
-
-
+	return personList
 }

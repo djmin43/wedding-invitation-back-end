@@ -16,17 +16,18 @@ func checkError(err error) {
 }
 
 func getAll(w http.ResponseWriter, r *http.Request) {
-	list := getAllApi(DB)
-	fmt.Println(list)
+	fmt.Println(w)
 }
 
 func handleRequests() {
 	http.HandleFunc("/all", getAll)
-	log.Fatal(http.ListenAndServe(":5000", nil))
+	log.Fatal(http.ListenAndServe(":10000", nil))
 }
 
 func main() {
-	db := connectToDB()
-
+	connectToDB()
+	personList := getAllApi()
+	fmt.Println(personList)
+	handleRequests()
 }
 
