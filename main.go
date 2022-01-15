@@ -9,11 +9,6 @@ import (
 )
 
 
-func checkError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
 
 func getAll(w http.ResponseWriter, r *http.Request) {
 	fmt.Println(w)
@@ -25,7 +20,5 @@ func handleRequests() {
 }
 
 func main() {
-	connectToDB()
-	getAllApi()
-	handleRequests()
 }
+

@@ -1,17 +1,29 @@
-package main
+package controller
 
 import (
 	"database/sql"
 	"fmt"
+	"net/http"
 )
 
-func getAllApi () {
+type BaseHandler struct {
+	db *sql.DB
+}
+
+func newBaseHandler(db *sql.DB) *BaseHandler {
+	return &BaseHandler {
+		db: db,
+	}
+}
+
+func (h *BaseHandler) getAllApi (w http.ResponseWriter, r *http.Request) {
 	var id string
 	var name string
 	var email string
 
 	sql_statement := `SELECT * from main."user"`
-	rows, err := DB.Query(sql_statement)
+	db := BaseHandler.db
+	rows, err := db.Query(sql_statement)
 	checkError(err)
 	defer rows.Close()
 
@@ -24,5 +36,12 @@ func getAllApi () {
 		default:
 			checkError(err)
 		}
+	}
+}
+
+
+func checkError(err error) {
+	if err != nil {
+		panic(err)
 	}
 }
