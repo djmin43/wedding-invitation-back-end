@@ -15,7 +15,13 @@ func checkError(err error) {
 	}
 }
 
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
+}
+
+
 func getAll(w http.ResponseWriter, r *http.Request)  {
+	enableCors(&w)
 	personList := getAllApi()
 	// w.Header().Set("Content-Type", "application/json")
 	// json.NewEncoder(w).Encode(personList)
