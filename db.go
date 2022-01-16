@@ -17,14 +17,13 @@ var DB *sql.DB
 // }
 
 func connectToDB() *sql.DB {
-	azureHost := "marriage-invitation.postgres.database.azure.com"
+	azureHost := "wedding.postgres.database.azure.com"
 	azureDatabase := "postgres"
 	azureUser := "mindongjoon"
-	azurePassword := "doremi123!"
+	azurePassword := "Doremi!!"
 	connectionString := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=require", azureHost, azureUser, azurePassword, azureDatabase)
 	db, err := sql.Open("postgres", connectionString)
 	checkError(err)
-
 	err = db.Ping()
 	checkError(err)
 	fmt.Println("connection successful!")

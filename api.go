@@ -5,40 +5,39 @@ import (
 	"fmt"
 )
 
-type Person struct {
+type Blog struct {
 	Id string `json:"id"`
-	Name string `json:"name"`
-	Email string `json:"email"`
+	User string `json:"user"`
+	Body string `json:"body"`
 }
 
-func getAllApi() []Person {
+func getBlogs() []Blog {
 	var id string
-	var name string
-	var email string
+	var user string
+	var body string
 
-	var personList []Person
+	var blogList []Blog
 
-	sql_statement := `SELECT * from main."user"`
+	sql_statement := `SELECT * from wedding."blogs"`
 	rows, err := DB.Query(sql_statement)
 	checkError(err)
 	defer rows.Close()
 
 	for rows.Next() {
-		switch err := rows.Scan(&id, &name, &email); err {
+		switch err := rows.Scan(&id, &user, &body); err {
 		case sql.ErrNoRows:
 			fmt.Println("No rows were returned")
 		case nil:
-			p := Person{
+			p := Blog{
 				Id: id,
-				Name: name,
-				Email: email,
+				User: user,
+				Body: body,
 			}
-			personList = append(personList, p)
-			// fmt.Printf("Data row = (%s, %s, %s)\n", id, name, email)
+			blogList = append(blogList, p)
 		default:
 			checkError(err)
 		}
 	}
-	return personList
+	return blogList
 }
 

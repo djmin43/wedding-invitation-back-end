@@ -22,7 +22,7 @@ func enableCors(w *http.ResponseWriter) {
 
 func getAll(w http.ResponseWriter, r *http.Request)  {
 	enableCors(&w)
-	personList := getAllApi()
+	personList := getBlogs()
 	// w.Header().Set("Content-Type", "application/json")
 	// json.NewEncoder(w).Encode(personList)
 	fmt.Fprint(w, personList)
