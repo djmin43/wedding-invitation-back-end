@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"io/ioutil"
 	"log"
 	"net/http"
 
@@ -27,19 +26,13 @@ func handleRequests() {
 
 func blog(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
-
 	switch r.Method {
-	case "GET":		
+	case "GET":
+		fmt.Println("get request")
 		blogList := getBlogs()
 		fmt.Fprint(w, blogList)
 	case "POST":
-    fmt.Println("Method : ", r.Method)
-    fmt.Println("URL : ", r.URL)
-    fmt.Println("Header : ", r.Header)
-    b, _ := ioutil.ReadAll(r.Body)
-    defer r.Body.Close()
-    fmt.Println("Body : ", string(b))		
-
+		addNewPost(w, r)
 	default:
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}
