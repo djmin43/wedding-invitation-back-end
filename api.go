@@ -8,7 +8,7 @@ import (
 )
 
 type Blog struct {
-	Id string `json:"id"`
+	Id   string `json:"id"`
 	User string `json:"user"`
 	Body string `json:"body"`
 	AvatarColor string `json:"avatar_color"`
@@ -34,7 +34,7 @@ func getBlogs() []Blog {
 			fmt.Println("No rows were returned")
 		case nil:
 			p := Blog{
-				Id: id,
+				Id:   id,
 				User: user,
 				Body: body,
 				AvatarColor: avatarColor,

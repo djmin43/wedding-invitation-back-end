@@ -8,7 +8,6 @@ import (
 	_ "github.com/lib/pq"
 )
 
-
 func checkError(err error) {
 	if err != nil {
 		panic(err)
@@ -42,4 +41,3 @@ func main() {
 	connectToDB()
 	handleRequests()
 }
-
