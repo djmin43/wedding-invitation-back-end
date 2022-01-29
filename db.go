@@ -26,7 +26,7 @@ func connectToDB() *sql.DB {
 	checkError(err)
 	err = db.Ping()
 	checkError(err)
-	fmt.Println("connection successful!")
+	fmt.Println("connection successful nice!")
 	DB = db
 	return db
 }
