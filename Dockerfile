@@ -17,7 +17,7 @@ RUN set -x && apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -
 
 COPY --from=builder /app/server /app/server
 
-ENV PORT 80
+ENV PORT 80w
 
 EXPOSE 80
 EXPOSE 4000

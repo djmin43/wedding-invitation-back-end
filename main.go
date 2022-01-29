@@ -25,13 +25,14 @@ func handleRequests() {
 
 func blog(w http.ResponseWriter, r *http.Request) {
 	enableCors(&w)
+	r.Header.Set("Content-Type", "application/json")
 	switch r.Method {
 	case "GET":
 		fmt.Println("get request")
-		blogList := getBlogs()
-		fmt.Fprint(w, blogList)
+		getBlogs(w, r)
 	case "POST":
 		addNewPost(w, r)
+		fmt.Println(r.Header)
 	default:
 		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
 	}
