@@ -9,13 +9,14 @@ type Blog struct {
 	Id string `json:"id"`
 	User string `json:"user"`
 	Body string `json:"body"`
+	AvatarColor string `json:"avatar_color"`
 }
 
 func getBlogs() []Blog {
 	var id string
 	var user string
 	var body string
-
+	var avatar_color string
 	var blogList []Blog
 
 	sql_statement := `SELECT * from wedding."blogs"`
@@ -32,6 +33,7 @@ func getBlogs() []Blog {
 				Id: id,
 				User: user,
 				Body: body,
+				AvatarColor: avatar_color,
 			}
 			blogList = append(blogList, p)
 		default:
