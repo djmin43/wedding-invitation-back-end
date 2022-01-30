@@ -66,7 +66,7 @@ func addNewPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Println(b.AvatarColor)
-	sql_statement := fmt.Sprintf(`INSERT INTO wedding.blogs (id, body, "user", createdt, avatar_color) VALUES('%s', '%s', '%s', now(), '%s');`, b.Id, b.Body, b.User, b.AvatarColor)
+	sql_statement := fmt.Sprintf(`INSERT INTO wedding.blogs (id, body, "user", createdt, avatar_color) VALUES('%s', '%s', '%s', now(), '%s');`, b.Id, b.User, b.Body, b.AvatarColor)
 	defer r.Body.Close()
 	rows, err := DB.Query(sql_statement)
 	checkError(err)
