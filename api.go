@@ -30,7 +30,7 @@ func getBlogs(w http.ResponseWriter, r *http.Request) []Blog {
 	defer rows.Close()
 
 	for rows.Next() {
-		switch err := rows.Scan(&id, &user, &body, &avatarColor, &createdt); err {
+		switch err := rows.Scan(&id, &user, &body, &createdt, &avatarColor); err {
 		case sql.ErrNoRows:
 			fmt.Println("No rows were returned")
 		case nil:
