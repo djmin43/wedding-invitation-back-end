@@ -16,7 +16,7 @@ type Blog struct {
 	CreateDt    string `json:"created"`
 }
 
-func getBlogs(w http.ResponseWriter, r *http.Request){
+func getBlogs(w http.ResponseWriter, r *http.Request) {
 	var id string
 	var user string
 	var body string
@@ -50,7 +50,7 @@ func getBlogs(w http.ResponseWriter, r *http.Request){
 	w.WriteHeader(http.StatusCreated)
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
-	w.WriteHeader(http.StatusOK)	
+	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResp)
 	if err != nil {
 		log.Fatalf("Error happened in JSON marshal. Err: %s", err)
@@ -66,7 +66,7 @@ func addNewPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Println(b.AvatarColor)
-	sql_statement := fmt.Sprintf(`INSERT INTO wedding.blogs (id, body, "user", createdt, avatar_color) VALUES('%s', '%s', '%s', now(), '%s');`, b.Id, b.Body, b.Body, b.AvatarColor)
+	sql_statement := fmt.Sprintf(`INSERT INTO wedding.blogs (id, body, "user", createdt, avatar_color) VALUES('%s', '%s', '%s', now(), '%s');`, b.Id, b.Body, b.User, b.AvatarColor)
 	defer r.Body.Close()
 	rows, err := DB.Query(sql_statement)
 	checkError(err)
