@@ -1,8 +1,10 @@
-package main
+package db
 
 import (
 	"database/sql"
 	"fmt"
+
+	"github.com/djmin43/wedding-invitation-back-end/util"
 )
 
 var DB *sql.DB
@@ -16,17 +18,19 @@ var DB *sql.DB
 // 	return password
 // }
 
-func connectToDB() *sql.DB {
+func ConnectToDB() *sql.DB {
 	azureHost := "wedding.postgres.database.azure.com"
 	azureDatabase := "postgres"
 	azureUser := "mindongjoon"
 	azurePassword := "Doremi!!"
 	connectionString := fmt.Sprintf("host=%s user=%s password=%s dbname=%s sslmode=require", azureHost, azureUser, azurePassword, azureDatabase)
 	db, err := sql.Open("postgres", connectionString)
-	checkError(err)
+	util.CheckError(err)
 	err = db.Ping()
-	checkError(err)
+	util.CheckError(err)
 	fmt.Println("connection successful nice!")
 	DB = db
 	return db
 }
+
+

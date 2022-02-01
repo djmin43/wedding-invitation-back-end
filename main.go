@@ -1,42 +1,21 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
+
+	"github.com/djmin43/wedding-invitation-back-end/db"
+	"github.com/djmin43/wedding-invitation-back-end/view"
 
 	_ "github.com/lib/pq"
 )
 
-func checkError(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
-
-func enableCors(w *http.ResponseWriter) {
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-}
-
 func handleRequests() {
-	http.HandleFunc("/blog", blog)
+	http.HandleFunc("/blog", view.Blog)
 	log.Fatal(http.ListenAndServe(":80", nil))
 }
 
-func blog(w http.ResponseWriter, r *http.Request) {
-	enableCors(&w)
-	r.Header.Set("Content-Type", "application/json")
-	switch r.Method {
-	case "GET":
-		getBlogs(w, r)
-	case "POST":
-		addNewPost(w, r)
-	default:
-		fmt.Fprintf(w, "Sorry, only GET and POST methods are supported.")
-	}
-}
-
 func main() {
-	connectToDB()
+	db.ConnectToDB()
 	handleRequests()
 }

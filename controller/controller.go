@@ -1,4 +1,4 @@
-package main
+package controller
 
 import (
 	"database/sql"
@@ -8,24 +8,19 @@ import (
 	"net/http"
 
 	"github.com/djmin43/wedding-invitation-back-end/db"
+	"github.com/djmin43/wedding-invitation-back-end/model"
 	"github.com/djmin43/wedding-invitation-back-end/util"
 )
 
-type Blog struct {
-	Id          string `json:"id"`
-	User        string `json:"user"`
-	Body        string `json:"body"`
-	AvatarColor string `json:"avatarColor"`
-	CreateDt    string `json:"created"`
-}
 
-func getBlogs(w http.ResponseWriter, r *http.Request) {
+
+func GetBlogs(w http.ResponseWriter, r *http.Request) {
 	var id string
 	var user string
 	var body string
 	var avatarColor string
 	var createdt string
-	var blogList []Blog
+	var blogList []model.Blog
 
 	sql_statement := `SELECT * from wedding."blogs"`
 	rows, err := db.DB.Query(sql_statement)
@@ -37,7 +32,7 @@ func getBlogs(w http.ResponseWriter, r *http.Request) {
 		case sql.ErrNoRows:
 			fmt.Println("No rows were returned")
 		case nil:
-			p := Blog{
+			p := model.Blog{
 				Id:          id,
 				User:        user,
 				Body:        body,
@@ -51,8 +46,6 @@ func getBlogs(w http.ResponseWriter, r *http.Request) {
 	}
 	jsonResp, err := json.Marshal(blogList)
 	w.WriteHeader(http.StatusCreated)
-	w.Header().Set("Access-Control-Allow-Origin", "*")
-	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResp)
 	if err != nil {
@@ -60,9 +53,8 @@ func getBlogs(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func addNewPost(w http.ResponseWriter, r *http.Request) {
-	var b Blog
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+func AddNewPost(w http.ResponseWriter, r *http.Request) {
+	var b model.Blog
 	err := json.NewDecoder(r.Body).Decode(&b)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)

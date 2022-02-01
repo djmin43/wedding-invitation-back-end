@@ -1,4 +1,4 @@
-module github.com/djmin43/marriage-invitation-back-end
+module github.com/djmin43/wedding-invitation-back-end
 
 go 1.17
 
