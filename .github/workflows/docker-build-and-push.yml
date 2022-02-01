@@ -13,6 +13,7 @@ jobs:
     steps:
       - name: checkout repo
         uses: actions/checkout@v2
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -22,10 +23,9 @@ jobs:
         uses: docker/login-action@v1
         with:
           username: jaymin43
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - name: Build and push
         uses: docker/build-push-action@v2
         with:
           push: true
           tags: jaymin43/wedding-invitation:2.0.0
-          labels: ${{ steps.meta.outputs.labels }}
