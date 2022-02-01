@@ -44,9 +44,8 @@ func GetBlogs(w http.ResponseWriter, r *http.Request) {
 			util.CheckError(err)
 		}
 	}
+	
 	jsonResp, err := json.Marshal(blogList)
-	w.WriteHeader(http.StatusCreated)
-	w.WriteHeader(http.StatusOK)
 	w.Write(jsonResp)
 	if err != nil {
 		log.Fatalf("Error happened in JSON marshal. Err: %s", err)
@@ -54,15 +53,17 @@ func GetBlogs(w http.ResponseWriter, r *http.Request) {
 }
 
 func AddNewPost(w http.ResponseWriter, r *http.Request) {
-	var b model.Blog
-	err := json.NewDecoder(r.Body).Decode(&b)
+	var newPost model.Blog
+	err := json.NewDecoder(r.Body).Decode(&newPost)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	fmt.Println(b.AvatarColor)
-	sql_statement := fmt.Sprintf(`INSERT INTO wedding.blogs (id, body, "user", createdt, avatar_color) VALUES('%s', '%s', '%s', now(), '%s');`, b.Id, b.User, b.Body, b.AvatarColor)
+	
+	fmt.Println(newPost.AvatarColor)
+	sql_statement := fmt.Sprintf(`INSERT INTO wedding.blogs (id, body, "user", createdt, avatar_color) VALUES('%s', '%s', '%s', now(), '%s');`, newPost.Id, newPost.User, newPost.Body, newPost.AvatarColor)
 	defer r.Body.Close()
+
 	rows, err := db.DB.Query(sql_statement)
 	util.CheckError(err)
 	defer rows.Close()

@@ -9,15 +9,6 @@ import (
 
 var DB *sql.DB
 
-// func getPassword() string {
-// 	err := godotenv.Load()
-// 	if err != nil {
-// 		log.Fatal("Error loading .env file")
-// 	}
-// 	password := os.Getenv("PASSWORD")
-// 	return password
-// }
-
 func ConnectToDB() *sql.DB {
 	azureHost := "wedding.postgres.database.azure.com"
 	azureDatabase := "postgres"
@@ -28,7 +19,7 @@ func ConnectToDB() *sql.DB {
 	util.CheckError(err)
 	err = db.Ping()
 	util.CheckError(err)
-	fmt.Println("connection successful nice!")
+	fmt.Println("connection successful")
 	DB = db
 	return db
 }
