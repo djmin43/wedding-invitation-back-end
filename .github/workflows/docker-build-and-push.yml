@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "master"
-    tags:
-      - "v*"
 
 jobs:
   docker:
@@ -26,4 +24,16 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: jaymin43/wedding-invitation:2.0.0
+          tags: jaymin43/wedding-invitation:2.0.1
+  azure:
+    steps:
+      - uses: azure/login@v1
+        with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: wedding-invitation
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          images: jaymin43/wedding-invitation:2.0.1
