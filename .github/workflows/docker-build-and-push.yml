@@ -6,7 +6,7 @@ on:
       - "master"
 
 jobs:
-  docker:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: checkout repo
@@ -25,11 +25,9 @@ jobs:
         with:
           push: true
           tags: jaymin43/wedding-invitation:2.0.1
-  azure:
-    steps:
       - uses: azure/login@v1
         with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
