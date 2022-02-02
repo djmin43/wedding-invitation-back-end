@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 
@@ -13,6 +14,7 @@ import (
 func handleRequests() {
 	http.HandleFunc("/blog", view.Blog)
 	log.Fatal(http.ListenAndServe(":80", nil))
+	fmt.Println("hello world")
 }
 
 func main() {

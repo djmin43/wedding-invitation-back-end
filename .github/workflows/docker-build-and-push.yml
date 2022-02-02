@@ -24,7 +24,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: jaymin43/wedding-invitation:2.0.1
+          tags: jaymin43/wedding-invitation:2.0.2
       - uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
@@ -34,4 +34,4 @@ jobs:
         with:
           app-name: wedding-invitation
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          images: jaymin43/wedding-invitation:2.0.1
+          images: jaymin43/wedding-invitation:2.0.2
