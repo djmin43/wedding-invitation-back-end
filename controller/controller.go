@@ -12,8 +12,6 @@ import (
 	"github.com/djmin43/wedding-invitation-back-end/util"
 )
 
-
-
 func GetBlogs(w http.ResponseWriter, r *http.Request) {
 	var id string
 	var user string
@@ -44,7 +42,7 @@ func GetBlogs(w http.ResponseWriter, r *http.Request) {
 			util.CheckError(err)
 		}
 	}
-	
+
 	jsonResp, err := json.Marshal(blogList)
 	w.Write(jsonResp)
 	if err != nil {
@@ -59,8 +57,6 @@ func AddNewPost(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-	
-	fmt.Println(newPost.AvatarColor)
 	sql_statement := fmt.Sprintf(`INSERT INTO wedding.blogs (id, body, "user", createdt, avatar_color) VALUES('%s', '%s', '%s', now(), '%s');`, newPost.Id, newPost.User, newPost.Body, newPost.AvatarColor)
 	defer r.Body.Close()
 

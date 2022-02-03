@@ -7,11 +7,10 @@ import (
 	"github.com/djmin43/wedding-invitation-back-end/controller"
 )
 
-
 func Blog(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 	case "GET":
-		controller.GetBlogs(w, r)	
+		controller.GetBlogs(w, r)
 	case "POST":
 		controller.AddNewPost(w, r)
 	default:
